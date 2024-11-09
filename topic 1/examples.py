@@ -1,5 +1,5 @@
-#name = input("Введите ваше имя: ")
-#print("Привет, " + name)
+name = int(input("Введите ваше имя: "))
+print("Привет, " + name)
 
 from datetime import datetime
 
