@@ -108,14 +108,16 @@
 #
 ## Тернарный оператор (условное выражение)
 ## Обычная запись
-#number = 10
+number = 10
 #if number > 0:
 #    result = "Положительное"
 #else:
 #    result = "Не положительное"
-#
-## Компактная запись
+
+# Компактная запись
 #result = "Положительное" if number > 0 else "Не положительное"
+#
+#print(result)
 #
 ## Определение статуса пользователя
 #user_points = 150
@@ -143,7 +145,7 @@ def shipping_cost(country, items):
             return 0
     else:
         raise ValueError("invalid country")
-print(shipping_cost("US", [2,5,6]))
+#print(shipping_cost("US", []))
     
 ### Хорошо
 def shipping_cost(country, items):
@@ -157,40 +159,40 @@ def shipping_cost(country, items):
         return 0 if len(items) > 10 else 5
     
     return 20  # Другие страны
-print(shipping_cost("US", [2,5,6]))
-print(shipping_cost("RF", [2,5,6]))
-
-# Будьте явны в проверках
-value = 0
-# Плохо
-if not value:
-    result = value
-    # Это может сработать и для 0, и для False, и для пустой строки
-
-# Хорошо
-if value is None:
-    result = value
-    # Только если value действительно None
-
-# Используйте двойные неравенства для диапазонов
-x = 10
-# Вместо
-if x >= 0 and x < 100:
-    result = x
-# Пишите
-if 0 <= x < 100:
-    result = x
-
-# Группируйте сложные условия с помощью скобок
-first_letter = "a" 
-last_letter = "я"
-
-if (first_letter == "а" or first_letter == "А") and (last_letter == "я" or last_letter == "Я"):
-    print("Верно")
-
-
-# Простые литеральные шаблоны
-
+#print(shipping_cost("US", [2,5,6]))
+#print(shipping_cost("RF", [2,5,6]))
+#
+## Будьте явны в проверках
+#value = 0
+## Плохо
+#if not value:
+#    result = value
+#    # Это может сработать и для 0, и для False, и для пустой строки
+#
+## Хорошо
+#if value is None:
+#    result = value
+#    # Только если value действительно None
+#
+## Используйте двойные неравенства для диапазонов
+#x = 10
+## Вместо
+#if x >= 0 and x < 100:
+#    result = x
+## Пишите
+#if 0 <= x < 100:
+#    result = x
+#
+## Группируйте сложные условия с помощью скобок
+#first_letter = "a" 
+#last_letter = "я"
+#
+#if (first_letter == "а" or first_letter == "А") and (last_letter == "я" or last_letter == "Я"):
+#    print("Верно")
+#
+#
+## Простые литеральные шаблоны
+#
 def get_http_status_message(code):
     match code:
         case 200:
@@ -210,7 +212,7 @@ def get_http_status_message(code):
 
 print(get_http_status_message(404))  # Not Found
 print(get_http_status_message(418))  # Unknown status code: 418
-
+#
 color = input("Введите цвет светофора: ")
 match color:
     case 'красный':
@@ -222,8 +224,8 @@ match color:
     case _:
         print('Некорректное значение.')
 
-
-# Объединение шаблонов (or-patterns)
+#
+## Объединение шаблонов (or-patterns)
 def classify_day(day):
     match day.lower():
         case "monday" | "tuesday" | "wednesday" | "thursday" | "friday":
@@ -235,9 +237,9 @@ def classify_day(day):
 
 print(classify_day("Saturday"))  # Выходной
 print(classify_day("Wednesday")) # Будний день
-
-# Захват переменных в шаблонах
-
+#
+## Захват переменных в шаблонах
+#
 def parse_command(command):
     match command.split():
         case ["quit"]:
@@ -252,10 +254,10 @@ def parse_command(command):
 print(parse_command("hello Alice"))  # Привет, Alice!
 print(parse_command("add 3 5"))      # Сумма: 8
 print(parse_command("quit"))         # Завершение программы
-
-
-# Важное различие: константы vs захват
-
+#
+#
+## Важное различие: константы vs захват
+#
 QUIT = "quit"  # Константа
 
 user_input = "quit"
@@ -275,9 +277,9 @@ match user_input:
     case Commands.HELP:
         print("Справка")
 
-# Шаблоны последовательностей
-## Пример: работа с точками на плоскости
-
+## Шаблоны последовательностей
+### Пример: работа с точками на плоскости
+#
 def process_point(point):
     match point:
         case (0, 0):
@@ -295,36 +297,36 @@ print(process_point((0, 0)))   # Начало координат
 print(process_point((5, 0)))   # На оси X в точке 5
 print(process_point((3, 7)))   # Точка (3, 7)
 
-## Шаблоны с произвольной длиной (*)
-
-def analyze_sequence(seq):
-    match seq:
-        case []:
-            return "Пустая последовательность"
-        case [single]:
-            return f"Один элемент: {single}"
-        case [first, second]:
-            return f"Пара: {first}, {second}"
-        case [first, *middle, last]:
-            return f"Первый: {first}, последний: {last}, середина: {len(middle)} элементов"
-
-print(analyze_sequence([]))              # Пустая последовательность
-print(analyze_sequence([42]))            # Один элемент: 42
-print(analyze_sequence([1, 2, 3, 4, 5])) # Первый: 1, последний: 5, середина: 3 элементов
-
-## Вложенные шаблоны последовательностей
-
-def process_matrix_row(row):
-    match row:
-        case [[a, b], [c, d]]:
-            return f"Блок 2x2: {a}, {b}, {c}, {d}"
-        case [first_row, *rest]:
-            return f"Первая строка: {first_row}, осталось строк: {len(rest)}"
-
-print(process_matrix_row([[1, 2], [3, 4]])) # Блок 2x2: 1, 2, 3, 4
-
-# Шаблоны отображений (словарей)
-## Пример: обработка API-ответов
+### Шаблоны с произвольной длиной (*)
+#
+#def analyze_sequence(seq):
+#    match seq:
+#        case []:
+#            return "Пустая последовательность"
+#        case [single]:
+#            return f"Один элемент: {single}"
+#        case [first, second]:
+#            return f"Пара: {first}, {second}"
+#        case [first, *middle, last]:
+#            return f"Первый: {first}, последний: {last}, середина: {len(middle)} элементов"
+#
+#print(analyze_sequence([]))              # Пустая последовательность
+#print(analyze_sequence([42]))            # Один элемент: 42
+#print(analyze_sequence([1, 2, 3, 4, 5])) # Первый: 1, последний: 5, середина: 3 элементов
+#
+### Вложенные шаблоны последовательностей
+#
+#def process_matrix_row(row):
+#    match row:
+#        case [[a, b], [c, d]]:
+#            return f"Блок 2x2: {a}, {b}, {c}, {d}"
+#        case [first_row, *rest]:
+#            return f"Первая строка: {first_row}, осталось строк: {len(rest)}"
+#
+#print(process_matrix_row([[1, 2], [3, 4]])) # Блок 2x2: 1, 2, 3, 4
+#
+## Шаблоны отображений (словарей)
+### Пример: обработка API-ответов
 def handle_api_response(response):
     match response:
         case {"status": "success", "data": data}:
@@ -339,5 +341,5 @@ def handle_api_response(response):
             return "Неверный формат ответа"
 
 print(handle_api_response({"status": "success", "data": [1, 2, 3]})) # Успех! Данные: [1, 2, 3]
-
+#
 print(handle_api_response({"status": "error", "message": "Not found"})) # Ошибка: Not found
